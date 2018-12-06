@@ -28,7 +28,7 @@ jobs:
         - git log --oneline --graph --decorate
         - git checkout nightly
         - git fetch origin master
-        - git rebase FETCH_HEAD --no-edit
+        - git rebase FETCH_HEAD
         - git log --oneline --graph --decorate
         # Copy "nightly" files
         - cp nightly/setup_nightly.py setup.py
