@@ -10,14 +10,13 @@ stages:
 before_install: &before_install
   - time
 
-install:
-  - python --version
-
-script: true
+install: true
 
 
 jobs:
   include:
+    - stage: Test
+      script: python --version
 
     - stage: Nightly
       python: "3.6"
@@ -26,8 +25,10 @@ jobs:
       before_install: *before_install
       install:
         # Merge master into nightly
+        - git log --oneline --graph --decorate
         - git fetch origin master
         - git merge FETCH_HEAD --no-edit
+        - git log --oneline --graph --decorate
         # Copy "nightly" files
         - cp nightly/setup_nightly.py setup.py
         # Push to nightly branch
